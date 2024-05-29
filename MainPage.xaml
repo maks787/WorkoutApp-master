@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WorkoutApp.MainPage"
+             Title="WorkoutApp"
+             BackgroundColor="White">
+
+    <ContentPage.Resources>
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="Blue" />
+        </Style>
+        <Style x:Key="FrameStyle" TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="BorderColor" Value="Blue" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Padding" Value="10" />
+        </Style>
+        <Style x:Key="ImageStyle" TargetType="Image">
+            <Setter Property="Aspect" Value="AspectFill" />
+            <Setter Property="HeightRequest" Value="150" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Основное содержание страницы -->
+        <ScrollView Grid.Row="0">
+            <StackLayout Padding="20">
+                <!-- Заголовок и слоган -->
+                <Label Text="WorkoutApp"
+                       Style="{StaticResource LabelStyle}"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+                <Label Text="Ваш личный тренер всегда с вами"
+                       Style="{StaticResource LabelStyle}"
+                       FontSize="14"
+                       HorizontalOptions="Center" />
+
+                <!-- Карусель для выбора программы -->
+                <CarouselView x:Name="carouselView" ItemsSource="{Binding RecommendedPrograms}" HeightRequest="300">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Style="{StaticResource FrameStyle}" Margin="10">
+                                <StackLayout>
+                                    <Image Source="{Binding Image}" Style="{StaticResource ImageStyle}" HeightRequest="200" />
+                                    <Label Text="{Binding Name}" Style="{StaticResource LabelStyle}" FontAttributes="Bold" HorizontalOptions="Center" />
+                                    <Label Text="{Binding Description}" Style="{StaticResource LabelStyle}" FontSize="12" HorizontalOptions="Center" />
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Нижняя навигационная панель -->
+        <StackLayout Orientation="Horizontal"
+                     BackgroundColor="Blue"
+                     VerticalOptions="End"
+                     Padding="10"
+                     Spacing="20"
+                     Grid.Row="1">
+            <Button Text="Home" Style="{StaticResource ButtonStyle}" Clicked="OnHomeClicked" />
+            <Button Text="Programs" Style="{StaticResource ButtonStyle}" Clicked="OnProgramsClicked" />
+            <Button Text="Progress" Style="{StaticResource ButtonStyle}" Clicked="OnProgressClicked" />
+            <Button Text="Settings" Style="{StaticResource ButtonStyle}" Clicked="OnSettingsClicked" />
+        </StackLayout>
+    </Grid>
+</ContentPage>

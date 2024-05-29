@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WorkoutApp.UserDetailsPage"
+             Title="User Details">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+            <Label Text="Enter Your Details" FontSize="24" HorizontalOptions="Center" />
+            <Entry x:Name="AgeEntry" Placeholder="Age" Keyboard="Numeric" />
+            <Entry x:Name="WeightEntry" Placeholder="Weight (kg)" Keyboard="Numeric" />
+            <Entry x:Name="HeightEntry" Placeholder="Height (cm)" Keyboard="Numeric" />
+            <Button Text="Save" Clicked="OnSaveButtonClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
