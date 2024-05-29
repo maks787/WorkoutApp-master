@@ -19,6 +19,14 @@
             <Setter Property="Aspect" Value="AspectFill" />
             <Setter Property="HeightRequest" Value="150" />
         </Style>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="Blue" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="HeightRequest" Value="50" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
     </ContentPage.Resources>
 
     <Grid>
@@ -42,7 +50,7 @@
                        HorizontalOptions="Center" />
 
                 <!-- Карусель для выбора программы -->
-                <CarouselView x:Name="carouselView" ItemsSource="{Binding RecommendedPrograms}" HeightRequest="300">
+                <CarouselView x:Name="carouselView" ItemsSource="{Binding RecommendedPrograms}" HeightRequest="300" CurrentItemChanged="OnCarouselItemSelected">
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
                             <Frame Style="{StaticResource FrameStyle}" Margin="10">
@@ -69,10 +77,10 @@
                      Padding="10"
                      Spacing="20"
                      Grid.Row="1">
-            <Button Text="Home" Clicked="OnHomeClicked" />
-            <Button Text="Programs" Clicked="OnProgramsClicked" />
-            <Button Text="Progress" Clicked="OnProgressClicked" />
-            <Button Text="Settings" Clicked="OnSettingsClicked" />
+            <Button Text="Home" Style="{StaticResource ButtonStyle}" Clicked="OnHomeClicked" />
+            <Button Text="Programs" Style="{StaticResource ButtonStyle}" Clicked="OnProgramsClicked" />
+            <Button Text="Progress" Style="{StaticResource ButtonStyle}" Clicked="OnProgressClicked" />
+            <Button Text="Logout" Style="{StaticResource ButtonStyle}" Clicked="OnLogoutClicked" />
         </StackLayout>
     </Grid>
 </ContentPage>

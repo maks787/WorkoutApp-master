@@ -1,21 +1,23 @@
-﻿using System;
+﻿using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;
+using System;
 using System.IO;
 using WorkoutApp.Services;
 
 namespace WorkoutApp
 {
-    public partial class App : Application
+    public partial class App : Microsoft.Maui.Controls.Application
     {
-        static Database database;
+        static DatabaseService database;
 
-        public static Database Database
+        public static DatabaseService Database
         {
             get
             {
                 if (database == null)
                 {
-                    database = new Database(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "WorkoutApp.db3"));
+                    database = new DatabaseService(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "WorkoutApp.db3"));
                 }
                 return database;
             }
@@ -24,8 +26,19 @@ namespace WorkoutApp
         public App()
         {
             InitializeComponent();
+            MainPage = new NavigationPage(new MainPage());
+        }
 
-            MainPage = new NavigationPage(new RegistrationPage());
+        protected override void OnStart()
+        {
+        }
+
+        protected override void OnSleep()
+        {
+        }
+
+        protected override void OnResume()
+        {
         }
     }
 }

@@ -1,4 +1,4 @@
-using WorkoutApp.Models;
+﻿using WorkoutApp.Models;
 using Microsoft.Maui.Controls;
 
 namespace WorkoutApp

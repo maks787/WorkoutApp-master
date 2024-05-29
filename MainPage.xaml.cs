@@ -48,10 +48,30 @@ namespace WorkoutApp
             await DisplayAlert("Navigation", "Settings clicked", "OK");
         }
 
+        private async void OnLogoutClicked(object sender, EventArgs e)
+        {
+            // Возврат на страницу входа и удаление текущих страниц из стека навигации
+            await Navigation.PushAsync(new LoginPage());
+
+            // Очистка стека навигации для предотвращения возврата на предыдущие страницы
+            Navigation.RemovePage(this);
+        }
+
         private async void OnImageTapped(object sender, EventArgs e)
         {
             var image = sender as Image;
             var selectedProgram = image.BindingContext as WorkoutProgram;
+            if (selectedProgram != null)
+            {
+                await DisplayAlert("Workout", $"Starting workout: {selectedProgram.Name}", "OK");
+                // Логика для перехода на страницу выбранной программы
+                await Navigation.PushAsync(new WorkoutDetailPage(selectedProgram));
+            }
+        }
+
+        private async void OnCarouselItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var selectedProgram = e.SelectedItem as WorkoutProgram;
             if (selectedProgram != null)
             {
                 await DisplayAlert("Workout", $"Starting workout: {selectedProgram.Name}", "OK");

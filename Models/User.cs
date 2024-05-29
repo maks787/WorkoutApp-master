@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WorkoutApp.Services;
+using SQLite;
 
 namespace WorkoutApp.Models
 {

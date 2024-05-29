@@ -1,4 +1,4 @@
-using Microsoft.Maui.Controls;
+﻿using Microsoft.Maui.Controls;
 using WorkoutApp.Models;
 using WorkoutApp.Services;
 
@@ -8,13 +8,13 @@ namespace WorkoutApp
     {
         public RegistrationPage()
         {
-            InitializeComponent(); // Ensure this method is called
+            InitializeComponent();
         }
 
         private async void OnRegisterButtonClicked(object sender, EventArgs e)
         {
-            var username = UsernameEntry.Text; // Ensure element names match XAML
-            var password = PasswordEntry.Text; // Ensure element names match XAML
+            var username = UsernameEntry.Text;
+            var password = PasswordEntry.Text;
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
@@ -27,7 +27,6 @@ namespace WorkoutApp
 
             await Navigation.PushAsync(new UserDetailsPage(user));
         }
-
 
         private async void OnLoginButtonClicked(object sender, EventArgs e)
         {
