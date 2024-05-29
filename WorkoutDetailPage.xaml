@@ -1,29 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WorkoutApp.WorkoutDetailPage"
              Title="Workout Detail"
              BackgroundColor="White">
-
     <ContentPage.Content>
         <StackLayout Padding="20">
-            <!-- Add workout details here -->
-            <Label Text="Workout Details"
+            <Label x:Name="WorkoutNameLabel"
                    FontSize="24"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
                    Margin="0,20,0,10" />
-            <!-- Example workout details -->
-            <Label Text="Workout Name: Full Body Workout"
+            <Label x:Name="WorkoutDescriptionLabel"
                    FontSize="18"
                    Margin="0,10,0,0" />
-            <Label Text="Description: A complete workout for your whole body."
+            <Label x:Name="WorkoutDurationLabel"
                    FontSize="18"
                    Margin="0,10,0,0" />
-            <Label Text="Duration: 45 minutes"
-                   FontSize="18"
-                   Margin="0,10,0,0" />
-            <!-- Add more workout details as needed -->
         </StackLayout>
     </ContentPage.Content>
-
 </ContentPage>

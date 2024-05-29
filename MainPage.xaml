@@ -47,7 +47,11 @@
                         <DataTemplate>
                             <Frame Style="{StaticResource FrameStyle}" Margin="10">
                                 <StackLayout>
-                                    <Image Source="{Binding Image}" Style="{StaticResource ImageStyle}" HeightRequest="200" />
+                                    <Image Source="{Binding Image}" Style="{StaticResource ImageStyle}" HeightRequest="200">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnImageTapped" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
                                     <Label Text="{Binding Name}" Style="{StaticResource LabelStyle}" FontAttributes="Bold" HorizontalOptions="Center" />
                                     <Label Text="{Binding Description}" Style="{StaticResource LabelStyle}" FontSize="12" HorizontalOptions="Center" />
                                 </StackLayout>
@@ -65,10 +69,10 @@
                      Padding="10"
                      Spacing="20"
                      Grid.Row="1">
-            <Button Text="Home" Style="{StaticResource ButtonStyle}" Clicked="OnHomeClicked" />
-            <Button Text="Programs" Style="{StaticResource ButtonStyle}" Clicked="OnProgramsClicked" />
-            <Button Text="Progress" Style="{StaticResource ButtonStyle}" Clicked="OnProgressClicked" />
-            <Button Text="Settings" Style="{StaticResource ButtonStyle}" Clicked="OnSettingsClicked" />
+            <Button Text="Home" Clicked="OnHomeClicked" />
+            <Button Text="Programs" Clicked="OnProgramsClicked" />
+            <Button Text="Progress" Clicked="OnProgressClicked" />
+            <Button Text="Settings" Clicked="OnSettingsClicked" />
         </StackLayout>
     </Grid>
 </ContentPage>

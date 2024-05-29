@@ -48,9 +48,10 @@ namespace WorkoutApp
             await DisplayAlert("Navigation", "Settings clicked", "OK");
         }
 
-        private async void OnCarouselItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void OnImageTapped(object sender, EventArgs e)
         {
-            var selectedProgram = e.SelectedItem as WorkoutProgram;
+            var image = sender as Image;
+            var selectedProgram = image.BindingContext as WorkoutProgram;
             if (selectedProgram != null)
             {
                 await DisplayAlert("Workout", $"Starting workout: {selectedProgram.Name}", "OK");
