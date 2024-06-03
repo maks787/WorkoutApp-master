@@ -47,38 +47,60 @@ namespace WorkoutApp
         {
             await DisplayAlert("Navigation", "Settings clicked", "OK");
         }
+        private async void OnLogoutClicked(object sender, EventArgs e)
+        {
+            // Возврат на страницу входа и удаление текущих страниц из стека навигации
+            await Navigation.PushAsync(new LoginPage());
+
+            // Очистка стека навигации для предотвращения возврата на предыдущие страницы
+            Navigation.RemovePage(this);
+        }
 
         private async void OnImageTapped(object sender, EventArgs e)
         {
             var image = sender as Image;
-            var selectedProgram = image.BindingContext as WorkoutProgram;
-            if (selectedProgram != null)
+            if (image == null)
             {
-                Page targetPage = null;
-                switch (selectedProgram.Name)
-                {
-                    case "Full Body Workout":
-                        targetPage = new FullBody();
-                        break;
-                    case "Cardio Blast":
-                        targetPage = new Cadio();
-                        break;
-                    case "Fat Burning":
-                        targetPage = new FatBurn();
-                        break;
-                    case "Abs Workout":
-                        targetPage = new ABSWork();
-                        break;
-                    case "Weight Gain":
-                        targetPage = new WeightGain();
-                        break;
-                }
+                await DisplayAlert("Error", "Image is null", "OK");
+                return;
+            }
 
-                if (targetPage != null)
-                {
-                    await Navigation.PushAsync(targetPage);
-                }
+            var selectedProgram = image.BindingContext as WorkoutProgram;
+            if (selectedProgram == null)
+            {
+                await DisplayAlert("Error", "Selected program is null", "OK");
+                return;
+            }
+
+            Page targetPage = null;
+            switch (selectedProgram.Name)
+            {
+                case "Full Body Workout":
+                    targetPage = new FullBody();
+                    break;
+                case "Cardio Blast":
+                    targetPage = new Cadio();
+                    break;
+                case "Fat Burning":
+                    targetPage = new FatBurn();
+                    break;
+                case "Abs Workout":
+                    targetPage = new ABSWork();
+                    break;
+                case "Weight Gain":
+                    targetPage = new WeightGain();
+                    break;
+            }
+
+            if (targetPage != null)
+            {
+                await Navigation.PushAsync(targetPage);
+            }
+            else
+            {
+                await DisplayAlert("Error", "Target page is null", "OK");
             }
         }
+
     }
 }
