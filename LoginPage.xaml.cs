@@ -32,6 +32,14 @@ namespace WorkoutApp
             {
                 await DisplayAlert("Error", "Invalid username or password.", "OK");
             }
+
+        }
+        private async void OnRegisterButtonClicked(object sender, EventArgs e)
+        {
+
+                await Navigation.PushAsync(new RegistrationPage());
+
+
         }
     }
 }

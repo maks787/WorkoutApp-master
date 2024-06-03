@@ -40,6 +40,9 @@
             <Button Text="Login"
                     Style="{StaticResource ButtonStyle}"
                     Clicked="OnLoginButtonClicked" />
+            <Button Text="Register"
+                    Style="{StaticResource ButtonStyle}"
+                    Clicked="OnRegisterButtonClicked" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
