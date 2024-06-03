@@ -50,7 +50,7 @@
                        HorizontalOptions="Center" />
 
                 <!-- Карусель для выбора программы -->
-                <CarouselView x:Name="carouselView" ItemsSource="{Binding RecommendedPrograms}" HeightRequest="300" CurrentItemChanged="OnCarouselItemSelected">
+                <CarouselView x:Name="carouselView" ItemsSource="{Binding RecommendedPrograms}" HeightRequest="300" CurrentItemChanged="OnImageTapped">
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
                             <Frame Style="{StaticResource FrameStyle}" Margin="10">
