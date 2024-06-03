@@ -79,9 +79,10 @@ namespace WorkoutApp
             foreach (var day in Days)
             {
                 var frame = FindFrameForDay(day);
-  
+                if (frame != null)
+                {
                     frame.BackgroundColor = Colors.Green;
-               
+                }
             }
         }
 
