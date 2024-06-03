@@ -26,7 +26,7 @@ namespace WorkoutApp
             if (user != null)
             {
                 await DisplayAlert("Success", "Login successful", "OK");
-                await Navigation.PushAsync(new UserDetailsPage(user));
+                await Navigation.PushAsync(new MainPage());
             }
             else
             {
