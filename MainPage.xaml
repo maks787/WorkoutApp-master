@@ -75,8 +75,8 @@
         <StackLayout Orientation="Horizontal"
                      BackgroundColor="Blue"
                      VerticalOptions="End"
-                     Padding="10"
-                     Spacing="20"
+                     Padding="5"
+                     Spacing="10"
                      Grid.Row="1">
             <Button Text="Home" Style="{StaticResource ButtonStyle}" Clicked="OnHomeClicked" />
             <Button Text="Programs" Style="{StaticResource ButtonStyle}" Clicked="OnProgramsClicked" />
