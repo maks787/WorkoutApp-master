@@ -45,7 +45,8 @@ namespace WorkoutApp
 
         private async void OnSettingsClicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Navigation", "Settings clicked", "OK");
+            // Переход на страницу настроек
+            await Navigation.PushAsync(new SettingsPage());
         }
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
