@@ -31,6 +31,7 @@ namespace WorkoutApp
 
         protected override void OnStart()
         {
+ 
         }
 
         protected override void OnSleep()
@@ -40,5 +41,9 @@ namespace WorkoutApp
         protected override void OnResume()
         {
         }
+
+      
+       
+     
     }
 }

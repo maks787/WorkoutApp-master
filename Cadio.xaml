@@ -10,7 +10,6 @@
             <Setter Property="TextColor" Value="Blue" />
         </Style>
         <Style x:Key="FrameStyle" TargetType="Frame">
-            <Setter Property="BackgroundColor" Value="White" />
             <Setter Property="BorderColor" Value="Blue" />
             <Setter Property="CornerRadius" Value="10" />
             <Setter Property="Padding" Value="10" />
@@ -26,7 +25,7 @@
             <CollectionView ItemsSource="{Binding Days}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame Margin="10" Style="{StaticResource FrameStyle}" BackgroundColor="{Binding BackgroundColor}">
+                        <Frame Margin="10" Style="{StaticResource FrameStyle}" BackgroundColor="{Binding FrameBackgroundColor}">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnDayTapped" />
                             </Frame.GestureRecognizers>
@@ -34,7 +33,6 @@
                                 <Label Text="{Binding Day}" Style="{StaticResource LabelStyle}" FontAttributes="Bold" />
                                 <Label Text="{Binding Description}" Style="{StaticResource LabelStyle}" FontSize="12" />
                                 <Button Text="Mark as Completed" Clicked="OnDayCompleted" />
-                                
                             </StackLayout>
                         </Frame>
                     </DataTemplate>

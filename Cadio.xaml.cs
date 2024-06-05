@@ -1,7 +1,8 @@
 ﻿using Microsoft.Maui.Controls;
 using WorkoutApp.Models;
 using System.Collections.ObjectModel;
-using System.Linq;  
+using Microsoft.Maui.Storage;
+using System.Text.Json;
 
 namespace WorkoutApp
 {
@@ -12,8 +13,32 @@ namespace WorkoutApp
         public Cadio()
         {
             InitializeComponent();
+            LoadProgress();
+            BindingContext = this;
+        }
 
-            // Создание списка дней с описанием тренировок и упражнениями
+        private void LoadProgress()
+        {
+            string savedProgress = Preferences.Get("WorkoutProgress", string.Empty);
+            if (!string.IsNullOrEmpty(savedProgress))
+            {
+                Days = JsonSerializer.Deserialize<ObservableCollection<WorkoutDay>>(savedProgress);
+                int lastCompletedIndex = Preferences.Get("LastCompletedDayIndex", 0);
+                if (lastCompletedIndex > 0 && lastCompletedIndex < Days.Count)
+                {
+                    var lastCompletedDay = Days[lastCompletedIndex];
+                    Days.RemoveAt(lastCompletedIndex);
+                    Days.Insert(0, lastCompletedDay);
+                }
+            }
+            else
+            {
+                InitializeDays();
+            }
+        }
+
+        private void InitializeDays()
+        {
             Days = new ObservableCollection<WorkoutDay>();
             for (int i = 1; i <= 30; i++)
             {
@@ -32,9 +57,12 @@ namespace WorkoutApp
                     IsLocked = i != 1 // Разблокируем только первый день
                 });
             }
+        }
 
-            // Установка контекста данных для привязки
-            BindingContext = this;
+        private void SaveProgress()
+        {
+            string progress = JsonSerializer.Serialize(Days);
+            Preferences.Set("WorkoutProgress", progress);
         }
 
         private async void OnDayTapped(object sender, EventArgs e)
@@ -47,62 +75,28 @@ namespace WorkoutApp
             }
         }
 
-        private async void OnExerciseTapped(object sender, EventArgs e)
-        {
-            var frame = sender as Frame;
-            var exercise = frame?.BindingContext as WorkoutExercise;
-            if (exercise != null)
-            {
-                await DisplayAlert(exercise.Name, exercise.Description, "OK");
-            }
-        }
-
         private void OnDayCompleted(object sender, EventArgs e)
         {
             var button = sender as Button;
             var day = button?.BindingContext as WorkoutDay;
             if (day != null)
             {
-                day.IsCompleted = true;
                 int currentIndex = Days.IndexOf(day);
-                if (currentIndex < Days.Count - 1)
+                if (currentIndex == 0 || Days[currentIndex - 1].IsCompleted)
                 {
-                    Days[currentIndex + 1].IsLocked = false; // Разблокируем следующий день
+                    day.IsCompleted = true;
+                    if (currentIndex < Days.Count - 1)
+                    {
+                        Days[currentIndex + 1].IsLocked = false; // Разблокируем следующий день
+                    }
+                    Preferences.Set("LastCompletedDayIndex", currentIndex);
+                    SaveProgress();
                 }
-                UpdateDayStyles();
-                RefreshCollectionView();
-            }
-        }
-
-        private void UpdateDayStyles()
-        {
-            foreach (var day in Days)
-            {
-                var frame = FindFrameForDay(day);
-                if (frame != null)
+                else
                 {
-                    frame.BackgroundColor = Colors.Green;
+                    DisplayAlert("Ошибка", "Вы не можете выполнить этот день, не завершив предыдущий.", "OK");
                 }
             }
-        }
-
-        private Frame FindFrameForDay(WorkoutDay day)
-        {
-            foreach (var frame in CollectionViewContainer.Children.OfType<Frame>())
-            {
-                if (frame.BindingContext == day)
-                {
-                    return frame;
-                }
-            }
-            return null;
-        }
-        private void RefreshCollectionView()
-        {
-            var oldDays = Days;
-            Days = new ObservableCollection<WorkoutDay>(Days);
-            BindingContext = null;
-            BindingContext = this;
         }
     }
 }
