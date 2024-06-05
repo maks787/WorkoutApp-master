@@ -79,8 +79,10 @@
                      Spacing="10"
                      Grid.Row="1">
             <Button Text="Home" Style="{StaticResource ButtonStyle}" Clicked="OnHomeClicked" />
-            <Button Text="Programs" Style="{StaticResource ButtonStyle}" Clicked="OnProgramsClicked" />
+            
             <Button Text="Progress" Style="{StaticResource ButtonStyle}" Clicked="OnProgressClicked" />
+            <Button Text="Settings" Style="{StaticResource ButtonStyle}" Clicked="OnSettingsClicked" />
+
             <Button Text="Logout" Style="{StaticResource ButtonStyle}" Clicked="OnLogoutClicked" />
         </StackLayout>
     </Grid>
