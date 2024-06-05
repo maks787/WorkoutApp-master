@@ -1,7 +1,7 @@
 ﻿using Microsoft.Maui.Controls;
 using WorkoutApp.Models;
 using System.Collections.ObjectModel;
-using System.Linq;  
+using System.Linq;
 
 namespace WorkoutApp
 {
@@ -29,11 +29,11 @@ namespace WorkoutApp
                     Day = $"Day {i}",
                     Description = $"Full Body Workout details for day {i}.",
                     Exercises = exercises,
-                    IsLocked = i != 1 // Разблокируем только первый день
+                    IsLocked = i != 1 
                 });
             }
 
-            // Установка контекста данных для привязки
+         
             BindingContext = this;
         }
 
@@ -63,46 +63,20 @@ namespace WorkoutApp
             var day = button?.BindingContext as WorkoutDay;
             if (day != null)
             {
-                day.IsCompleted = true;
                 int currentIndex = Days.IndexOf(day);
-                if (currentIndex < Days.Count - 1)
+                if (currentIndex == 0 || Days[currentIndex - 1].IsCompleted)
                 {
-                    Days[currentIndex + 1].IsLocked = false; // Разблокируем следующий день
+                    day.IsCompleted = true;
+                    if (currentIndex < Days.Count - 1)
+                    {
+                        Days[currentIndex + 1].IsLocked = false; // открываю след день
+                    }
                 }
-                UpdateDayStyles();
-                RefreshCollectionView();
-            }
-        }
-
-        private void UpdateDayStyles()
-        {
-            foreach (var day in Days)
-            {
-                var frame = FindFrameForDay(day);
-                if (frame != null)
+                else
                 {
-                    frame.BackgroundColor = Colors.Green;
+                    DisplayAlert("Ошибка", "Вы не можете выполнить этот день, не завершив предыдущий.", "OK");
                 }
             }
-        }
-
-        private Frame FindFrameForDay(WorkoutDay day)
-        {
-            foreach (var frame in CollectionViewContainer.Children.OfType<Frame>())
-            {
-                if (frame.BindingContext == day)
-                {
-                    return frame;
-                }
-            }
-            return null;
-        }
-        private void RefreshCollectionView()
-        {
-            var oldDays = Days;
-            Days = new ObservableCollection<WorkoutDay>(Days);
-            BindingContext = null;
-            BindingContext = this;
         }
     }
 }
