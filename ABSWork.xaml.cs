@@ -19,9 +19,9 @@ namespace WorkoutApp
             {
                 var exercises = new ObservableCollection<WorkoutExercise>
                 {
-                    new WorkoutExercise { Name = "Jumping Jacks", Description = "Do 50 jumping jacks.", Image = "jumpingjacks.jpg" },
-                    new WorkoutExercise { Name = "Burpees", Description = "Do 20 burpees.", Image = "burpees.jpg" },
-                    new WorkoutExercise { Name = "Mountain Climbers", Description = "Do 40 mountain climbers.", Image = "mountainclimbers.jpg" }
+                    new WorkoutExercise { Name = "Crunches", Description = "Lie on your back with your knees bent and feet flat on the floor. Place your hands behind your head and lift your upper body towards your knees.", Image = "crunches.jpg" },
+                    new WorkoutExercise { Name = "Plank", Description = "Get into a forearm plank position with your body in a straight line from head to heels. Hold the position for 1 minute.", Image = "plank.png" },
+                    new WorkoutExercise { Name = "Bicycle Crunches", Description = "Lie on your back and bring your knees towards your chest. Alternate touching your elbows to the opposite knee in a cycling motion.", Image = "bicycle.png" }
                 };
 
                 Days.Add(new WorkoutDay

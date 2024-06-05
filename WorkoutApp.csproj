@@ -50,14 +50,30 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\absworkout.jpg" />
+	  <None Remove="Resources\Images\bicycle.png" />
+	  <None Remove="Resources\Images\burpee.jpg" />
+	  <None Remove="Resources\Images\burpees.jpg" />
 	  <None Remove="Resources\Images\cardio.jpg" />
+	  <None Remove="Resources\Images\chairdips.png" />
+	  <None Remove="Resources\Images\crunches.jpg" />
 	  <None Remove="Resources\Images\fatburning.png" />
 	  <None Remove="Resources\Images\fullbody.jpg" />
+	  <None Remove="Resources\Images\highknees.jpg" />
+	  <None Remove="Resources\Images\JumpRope.png" />
+	  <None Remove="Resources\Images\lunges.jpg" />
+	  <None Remove="Resources\Images\mountain.jpg" />
+	  <None Remove="Resources\Images\plank.png" />
+	  <None Remove="Resources\Images\plankto.png" />
+	  <None Remove="Resources\Images\pushup.jpg" />
+	  <None Remove="Resources\Images\run.jpg" />
+	  <None Remove="Resources\Images\squatjump.jpg" />
+	  <None Remove="Resources\Images\squats.png" />
 	  <None Remove="Resources\Images\weightgain.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 	</ItemGroup>
 
