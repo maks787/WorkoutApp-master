@@ -2,23 +2,39 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WorkoutApp.FatBurn"
-             Title="Full Body Workout"
+             Title="Fatburn Workout"
              BackgroundColor="White">
 
-    <ScrollView>
-        <StackLayout Padding="20">
-            <Label Text="Full Body Workout" FontSize="24" TextColor="Blue" HorizontalOptions="Center" />
-            <Image Source="fatburning.jpg" HeightRequest="200" HorizontalOptions="Center" />
-            <Label Text="A complete workout for your whole body." FontSize="18" TextColor="Black" HorizontalOptions="Center" />
+    <ContentPage.Resources>
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="Blue" />
+        </Style>
+        <Style x:Key="FrameStyle" TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="BorderColor" Value="Blue" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Padding" Value="10" />
+        </Style>
+        <Style x:Key="ImageStyle" TargetType="Image">
+            <Setter Property="Aspect" Value="AspectFill" />
+            <Setter Property="HeightRequest" Value="150" />
+        </Style>
+    </ContentPage.Resources>
 
-            <Label Text="30-Day Plan" FontSize="20" TextColor="Blue" HorizontalOptions="Center" Margin="20,10,20,10" />
+    <ScrollView>
+        <StackLayout x:Name="CollectionViewContainer" Padding="20">
             <CollectionView ItemsSource="{Binding Days}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame Margin="5" Padding="10" BorderColor="Blue" CornerRadius="5">
+                        <Frame Margin="10" Style="{StaticResource FrameStyle}" BackgroundColor="{Binding BackgroundColor}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDayTapped" />
+                            </Frame.GestureRecognizers>
                             <StackLayout>
-                                <Label Text="{Binding Day}" FontSize="18" TextColor="Black" />
-                                <Label Text="{Binding Description}" FontSize="14" TextColor="Gray" />
+                                <Label Text="{Binding Day}" Style="{StaticResource LabelStyle}" FontAttributes="Bold" />
+                                <Label Text="{Binding Description}" Style="{StaticResource LabelStyle}" FontSize="12" />
+                                <Button Text="Mark as Completed" Clicked="OnDayCompleted" />
+
                             </StackLayout>
                         </Frame>
                     </DataTemplate>
