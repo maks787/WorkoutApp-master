@@ -12,6 +12,12 @@ namespace WorkoutApp.Models
 
         public string Day { get; set; }
         public string Description { get; set; }
+<<<<<<< Updated upstream
+=======
+        public string Program { get; set; } 
+
+        [Ignore]
+>>>>>>> Stashed changes
         public ObservableCollection<WorkoutExercise> Exercises { get; set; }
 
         public bool IsCompleted
