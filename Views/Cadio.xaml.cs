@@ -67,7 +67,7 @@ namespace WorkoutApp
                     UserId = _currentUser.Id,
                     WorkoutType = "Cardio", // Указываем тип тренировки
                     Day = $"Day {i}",
-                    Description = $"Full Body Workout details for day {i}.",
+                    Description = $"Cardio Workout details for day {i}.",
                     Exercises = exercises,
                     IsLocked = i != 1 // Разблокируем только первый день
                 };

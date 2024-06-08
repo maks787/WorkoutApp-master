@@ -1,40 +1,89 @@
 ﻿using Microsoft.Maui.Controls;
 using WorkoutApp.Models;
+using WorkoutApp.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.IO;
+using System.Diagnostics;
 
 namespace WorkoutApp
 {
     public partial class WeightGain : ContentPage
     {
+        private DatabaseService _databaseService;
+        private User _currentUser;
+
         public ObservableCollection<WorkoutDay> Days { get; set; }
 
-        public WeightGain()
+        public WeightGain(User user)
         {
             InitializeComponent();
+            _currentUser = user;
+            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "workout.db3");
+            Debug.WriteLine($"Database path in WeightGain: {dbPath}");
+            _databaseService = new DatabaseService(dbPath);
+            LoadProgress();
+            BindingContext = this;
+        }
 
-            // Создание списка дней с описанием тренировок и упражнениями
+        private async void LoadProgress()
+        {
+            Debug.WriteLine("LoadProgress started");
+            var days = await _databaseService.GetWorkoutDaysAsync(_currentUser.Id, "WeightGain"); // Указываем тип тренировки
+            if (days == null || !days.Any())
+            {
+                Debug.WriteLine("No existing days found, initializing new days");
+                InitializeDays();
+            }
+            else
+            {
+                Debug.WriteLine($"Found {days.Count} days in database");
+                Days = new ObservableCollection<WorkoutDay>(days.OrderBy(d => d.Id).ToList());
+                Debug.WriteLine($"Loaded {Days.Count} days from the database");
+                foreach (var day in Days)
+                {
+                    Debug.WriteLine($"Day {day.Day}, IsLocked: {day.IsLocked}, IsCompleted: {day.IsCompleted}");
+                }
+                BindingContext = this;
+            }
+        }
+
+        private void InitializeDays()
+        {
+            Debug.WriteLine("Initializing days");
             Days = new ObservableCollection<WorkoutDay>();
             for (int i = 1; i <= 30; i++)
             {
                 var exercises = new ObservableCollection<WorkoutExercise>
                 {
-                    new WorkoutExercise { Name = "Push-Ups", Description = "Perform 3 sets of 15 push-ups.", Image = "pushup.jpg" },
-                    new WorkoutExercise { Name = "Plank to Push-Up", Description = "Perform 3 sets of 10 plank to push-ups.", Image = "plankto.png" },
-                    new WorkoutExercise { Name = "Chair Dips", Description = "Perform 3 sets of 12 chair dips.", Image = "chairdips.png" }
+                    new WorkoutExercise { Name = "Push-Ups", Description = "Do 20 push-ups.", Image = "pushups.jpg" },
+                    new WorkoutExercise { Name = "Pull-Ups", Description = "Do 10 pull-ups.", Image = "pullups.jpg" },
+                    new WorkoutExercise { Name = "Dumbbell Press", Description = "Do 15 dumbbell presses.", Image = "dumbbellpress.jpg" }
                 };
 
-                Days.Add(new WorkoutDay
+                var day = new WorkoutDay
                 {
+                    UserId = _currentUser.Id,
+                    WorkoutType = "WeightGain", // Указываем тип тренировки
                     Day = $"Day {i}",
-                    Description = $"Full Body Workout details for day {i}.",
+                    Description = $"Weight Gain Workout details for day {i}.",
                     Exercises = exercises,
                     IsLocked = i != 1 // Разблокируем только первый день
-                });
-            }
+                };
 
-            // Установка контекста данных для привязки
+                day.UpdateExercisesJson();
+                Days.Add(day);
+                _databaseService.SaveWorkoutDayAsync(day).Wait();
+                Debug.WriteLine($"Initialized day {i}");
+            }
+            Debug.WriteLine($"Initialized {Days.Count} days");
             BindingContext = this;
+        }
+
+        private async void SaveProgress(WorkoutDay day)
+        {
+            day.UpdateExercisesJson();
+            await _databaseService.SaveWorkoutDayAsync(day);
         }
 
         private async void OnDayTapped(object sender, EventArgs e)
@@ -47,62 +96,27 @@ namespace WorkoutApp
             }
         }
 
-        private async void OnExerciseTapped(object sender, EventArgs e)
-        {
-            var frame = sender as Frame;
-            var exercise = frame?.BindingContext as WorkoutExercise;
-            if (exercise != null)
-            {
-                await DisplayAlert(exercise.Name, exercise.Description, "OK");
-            }
-        }
-
         private void OnDayCompleted(object sender, EventArgs e)
         {
             var button = sender as Button;
             var day = button?.BindingContext as WorkoutDay;
             if (day != null)
             {
-                day.IsCompleted = true;
                 int currentIndex = Days.IndexOf(day);
-                if (currentIndex < Days.Count - 1)
+                if (currentIndex == 0 || Days[currentIndex - 1].IsCompleted)
                 {
-                    Days[currentIndex + 1].IsLocked = false; // Разблокируем следующий день
+                    day.IsCompleted = true;
+                    if (currentIndex < Days.Count - 1)
+                    {
+                        Days[currentIndex + 1].IsLocked = false; // Разблокируем следующий день
+                    }
+                    SaveProgress(day);
                 }
-                UpdateDayStyles();
-                RefreshCollectionView();
-            }
-        }
-
-        private void UpdateDayStyles()
-        {
-            foreach (var day in Days)
-            {
-                var frame = FindFrameForDay(day);
-                if (frame != null)
+                else
                 {
-                    frame.BackgroundColor = Colors.Green;
+                    DisplayAlert("Ошибка", "Вы не можете выполнить этот день, не завершив предыдущий.", "OK");
                 }
             }
-        }
-
-        private Frame FindFrameForDay(WorkoutDay day)
-        {
-            foreach (var frame in CollectionViewContainer.Children.OfType<Frame>())
-            {
-                if (frame.BindingContext == day)
-                {
-                    return frame;
-                }
-            }
-            return null;
-        }
-        private void RefreshCollectionView()
-        {
-            var oldDays = Days;
-            Days = new ObservableCollection<WorkoutDay>(Days);
-            BindingContext = null;
-            BindingContext = this;
         }
     }
 }

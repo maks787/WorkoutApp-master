@@ -36,15 +36,10 @@ namespace WorkoutApp
             await Navigation.PushAsync(new MainPage(_currentUser));
         }
 
-        private async void OnProgramsClicked(object sender, EventArgs e)
+        private async void OnProgressClicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Navigation", "Programs clicked", "OK");
+            await DisplayAlert("Navigation", "Progress clicked", "OK");
         }
-
-        //private async void OnProgressClicked(object sender, EventArgs e)
-        //{
-        //    await DisplayAlert("Navigation", "Progress clicked", "OK");
-        //}
 
         private async void OnSettingsClicked(object sender, EventArgs e)
         {
@@ -87,13 +82,13 @@ namespace WorkoutApp
                     targetPage = new Cadio(_currentUser); // Передаем текущего пользователя
                     break;
                 case "Fat Burning":
-                    targetPage = new FatBurn();
+                    targetPage = new FatBurn(_currentUser);
                     break;
                 case "Abs Workout":
-                    targetPage = new ABSWork();
+                    targetPage = new ABSWork(_currentUser);
                     break;
                 case "Weight Gain":
-                    targetPage = new WeightGain();
+                    targetPage = new WeightGain(_currentUser);
                     break;
             }
 
