@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WorkoutApp.SettingsPage"
-             Title="Settings"
+             Title="Seaded"
              BackgroundColor="White">
 
     <ContentPage.Resources>
@@ -26,18 +26,18 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20">
-            <Label Text="Settings"
+            <Label Text="Seaded"
                    Style="{StaticResource LabelStyle}"
                    FontSize="24"
                    HorizontalOptions="Center" />
             <Entry x:Name="UsernameEntry"
-                   Placeholder="Username"
+                   Placeholder="UserKasutajaniminame"
                    Style="{StaticResource EntryStyle}" />
             <Entry x:Name="PasswordEntry"
-                   Placeholder="Password"
+                   Placeholder="Parool"
             
                    Style="{StaticResource EntryStyle}" />
-            <Button Text="Save Changes"
+            <Button Text="Muudatuste salvestamine"
                     Style="{StaticResource ButtonStyle}"
                     Clicked="OnSaveButtonClicked" />
         </VerticalStackLayout>

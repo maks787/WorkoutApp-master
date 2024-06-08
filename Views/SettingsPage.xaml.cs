@@ -34,7 +34,7 @@ namespace WorkoutApp
 
             await _databaseService.SaveUserAsync(_currentUser);
 
-            await DisplayAlert("Success", "Changes saved successfully.", "OK");
+            await DisplayAlert("Edu", "Muudatused salvestatud edukalt.", "OK");
             await Navigation.PushAsync(new MainPage(_currentUser));
         }
     }

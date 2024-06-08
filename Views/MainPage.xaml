@@ -44,7 +44,7 @@
                        FontSize="24"
                        FontAttributes="Bold"
                        HorizontalOptions="Center" />
-                <Label Text="Ваш личный тренер всегда с вами"
+                <Label Text="Teie isiklik treener alati teiega"
                        Style="{StaticResource LabelStyle}"
                        FontSize="14"
                        HorizontalOptions="Center" />
@@ -78,10 +78,10 @@
                      Padding="5"
                      Spacing="10"
                      Grid.Row="1">
-            <Button Text="Home" Style="{StaticResource ButtonStyle}" Clicked="OnHomeClicked" />
-            <Button Text="Settings" Style="{StaticResource ButtonStyle}" Clicked="OnSettingsClicked" />
-            <Button Text="Progress" Style="{StaticResource ButtonStyle}" Clicked="OnProgressClicked" />
-            <Button Text="Logout" Style="{StaticResource ButtonStyle}" Clicked="OnLogoutClicked" />
+            <Button Text="Avaleht" Style="{StaticResource ButtonStyle}" Clicked="OnHomeClicked" />
+            <Button Text="Seaded" Style="{StaticResource ButtonStyle}" Clicked="OnSettingsClicked" />
+            <Button Text="Edenemine" Style="{StaticResource ButtonStyle}" Clicked="OnProgressClicked" />
+            <Button Text="Logi välja" Style="{StaticResource ButtonStyle}" Clicked="OnLogoutClicked" />
         </StackLayout>
     </Grid>
 </ContentPage>

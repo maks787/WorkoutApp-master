@@ -26,15 +26,15 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20">
-            <Label Text="Login"
+            <Label Text="Logi sisse"
                    Style="{StaticResource LabelStyle}"
                    FontSize="24"
                    HorizontalOptions="Center" />
             <Entry x:Name="UsernameEntry"
-                   Placeholder="Username"
+                   Placeholder="Kasutajanimi"
                    Style="{StaticResource EntryStyle}" />
             <Entry x:Name="PasswordEntry"
-                   Placeholder="Password"
+                   Placeholder="Parool"
                    IsPassword="True"
                    Style="{StaticResource EntryStyle}" />
             <Button Text="Login"

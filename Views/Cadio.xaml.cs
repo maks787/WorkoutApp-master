@@ -56,17 +56,17 @@ namespace WorkoutApp
             {
                 var exercises = new ObservableCollection<WorkoutExercise>
                 {
-                    new WorkoutExercise { Name = "Jumping Jacks", Description = "Do 50 jumping jacks.", Image = "jumpingjacks.jpg" },
-                    new WorkoutExercise { Name = "Burpees", Description = "Do 20 burpees.", Image = "burpees.jpg" },
-                    new WorkoutExercise { Name = "Mountain Climbers", Description = "Do 40 mountain climbers.", Image = "mountainclimbers.jpg" }
+                    new WorkoutExercise { Name = "Hüppeliigeseid", Description = "Tehke 50 hüppeliigeseid.", Image = "jumpingjacks.jpg" },
+                    new WorkoutExercise { Name = "Burpees", Description = "Tehke 20 burpees.", Image = "burpees.jpg" },
+                    new WorkoutExercise { Name = "Mägironijad", Description = "Tehke 40 mägironijat.", Image = "mountainclimbers.jpg" }
                 };
 
                 var day = new WorkoutDay
                 {
                     UserId = _currentUser.Id,
-                    WorkoutType = "Cardio", // Указываем тип тренировки
-                    Day = $"Day {i}",
-                    Description = $"Cardio Workout details for day {i}.",
+                    WorkoutType = "Kardio", // Указываем тип тренировки
+                    Day = $"Päev {i}",
+                    Description = $"Kardio treeningu üksikasjad päevaks {i}.",
                     Exercises = exercises,
                     IsLocked = i != 1 // Разблокируем только первый день
                 };
@@ -114,7 +114,7 @@ namespace WorkoutApp
                 }
                 else
                 {
-                    DisplayAlert("Ошибка", "Вы не можете выполнить этот день, не завершив предыдущий.", "OK");
+                    DisplayAlert("Viga", "Te ei saa seda päeva läbida, ilma et te oleksite lõpetanud eelmise päeva.", "OK");
                 }
             }
         }

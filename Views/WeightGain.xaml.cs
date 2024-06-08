@@ -56,17 +56,17 @@ namespace WorkoutApp
             {
                 var exercises = new ObservableCollection<WorkoutExercise>
                 {
-                    new WorkoutExercise { Name = "Push-ups", Description = "Do 20 push-ups.", Image = "pushups.jpg" },
-                    new WorkoutExercise { Name = "Squats", Description = "Do 30 squats.", Image = "squats.jpg" },
-                    new WorkoutExercise { Name = "Lunges", Description = "Do 20 lunges on each leg.", Image = "lunges.jpg" }
+                    new WorkoutExercise { Name = "Tõuked", Description = "Tehke 20 tõuget.", Image = "pushups.jpg" },
+                    new WorkoutExercise { Name = "Kükid", Description = "Tehke 30 kükki.", Image = "squats.jpg" },
+                    new WorkoutExercise { Name = "Lunges", Description = "Tehke mõlemal jalal 20 kükitamist.", Image = "lunges.jpg" }
                 };
 
                 var day = new WorkoutDay
                 {
                     UserId = _currentUser.Id,
                     WorkoutType = "WeightGain", // Указываем тип тренировки
-                    Day = $"Day {i}",
-                    Description = $"Weight Gain Workout details for day {i}.",
+                    Day = $"Päev {i}",
+                    Description = $"Kaalutõusu treeningu üksikasjad päevaks {i}.",
                     Exercises = exercises,
                     IsLocked = i != 1 // Разблокируем только первый день
                 };
@@ -114,7 +114,7 @@ namespace WorkoutApp
                 }
                 else
                 {
-                    DisplayAlert("Ошибка", "Вы не можете выполнить этот день, не завершив предыдущий.", "OK");
+                    DisplayAlert("Viga", "Te ei saa seda päeva läbida, ilma et te oleksite lõpetanud eelmise päeva.", "OK");
                 }
             }
         }

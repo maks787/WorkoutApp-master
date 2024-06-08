@@ -40,7 +40,7 @@ namespace WorkoutApp
                     WorkoutProgress.Add(new WorkoutProgress
                     {
                         WorkoutType = type,
-                        ProgressDescription = $"{completedDays} of {totalDays} days completed"
+                        ProgressDescription = $"{completedDays} päeva {totalDays} lõpule viidud"
                     });
                 }
             }

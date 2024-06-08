@@ -56,17 +56,17 @@ namespace WorkoutApp
             {
                 var exercises = new ObservableCollection<WorkoutExercise>
                 {
-                    new WorkoutExercise { Name = "Crunches", Description = "Lie on your back with your knees bent and feet flat on the floor. Place your hands behind your head and lift your upper body towards your knees.", Image = "crunches.jpg" },
-                    new WorkoutExercise { Name = "Plank", Description = "Get into a forearm plank position with your body in a straight line from head to heels. Hold the position for 1 minute.", Image = "plank.png" },
-                    new WorkoutExercise { Name = "Bicycle Crunches", Description = "Lie on your back and bring your knees towards your chest. Alternate touching your elbows to the opposite knee in a cycling motion.", Image = "bicycle.png" }
+                    new WorkoutExercise { Name = "Crunches", Description = "Lamage selili, põlved kõverdatud ja jalad lamedalt põrandal. Asetage käed pea taha ja tõstke ülakeha põlvede suunas.", Image = "crunches.jpg" },
+                    new WorkoutExercise { Name = "Plank", Description = "Asetuge küünarvarrega planku asendisse, kus keha on pea ja kanna vahel sirgjoones. Hoidke seda asendit 1 minut.", Image = "plank.png" },
+                    new WorkoutExercise { Name = "Jalgratta Crunches", Description = "Lamage selili ja viige põlved rinnale. Puudutage küünarnukid vaheldumisi vastaspoole põlve jalgrattaga..", Image = "bicycle.png" }
                 };
 
                 var day = new WorkoutDay
                 {
                     UserId = _currentUser.Id,
                     WorkoutType = "ABS", // Указываем тип тренировки
-                    Day = $"Day {i}",
-                    Description = $"ABS Workout details for day {i}.",
+                    Day = $"Päev {i}",
+                    Description = $"ABS treeningu üksikasjad päevaks {i}.",
                     Exercises = exercises,
                     IsLocked = i != 1 // Разблокируем только первый день
                 };
@@ -114,7 +114,7 @@ namespace WorkoutApp
                 }
                 else
                 {
-                    DisplayAlert("Ошибка", "Вы не можете выполнить этот день, не завершив предыдущий.", "OK");
+                    DisplayAlert("Viga", "Te ei saa seda päeva läbida, ilma et te oleksite lõpetanud eelmise päeva.", "OK");
                 }
             }
         }

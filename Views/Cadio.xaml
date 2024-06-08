@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WorkoutApp.Cadio"
-             Title="Cardio Workout"
+             Title="Kardio Treening"
              BackgroundColor="White">
 
     <ContentPage.Resources>
@@ -10,6 +10,7 @@
             <Setter Property="TextColor" Value="Blue" />
         </Style>
         <Style x:Key="FrameStyle" TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="White" />
             <Setter Property="BorderColor" Value="Blue" />
             <Setter Property="CornerRadius" Value="10" />
             <Setter Property="Padding" Value="10" />
@@ -32,7 +33,7 @@
                             <StackLayout>
                                 <Label Text="{Binding Day}" Style="{StaticResource LabelStyle}" FontAttributes="Bold" />
                                 <Label Text="{Binding Description}" Style="{StaticResource LabelStyle}" FontSize="12" />
-                                <Button Text="Mark as Completed" Clicked="OnDayCompleted" />
+                                <Button Text="Märgi lõpetatuks" Clicked="OnDayCompleted" />
                             </StackLayout>
                         </Frame>
                     </DataTemplate>

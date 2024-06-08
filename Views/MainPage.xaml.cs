@@ -17,11 +17,11 @@ namespace WorkoutApp
 
             RecommendedPrograms = new ObservableCollection<WorkoutProgram>
             {
-                new WorkoutProgram { Name = "Full Body Workout", Description = "A complete workout for your whole body.", Image = "fullbody.jpg" },
-                new WorkoutProgram { Name = "Cardio Blast", Description = "High-intensity cardio workout.", Image = "cardio.jpg" },
-                new WorkoutProgram { Name = "Fat Burning", Description = "Intensive workout to burn fat.", Image = "fatburning.png" },
-                new WorkoutProgram { Name = "Abs Workout", Description = "Targeted exercises to build abs.", Image = "absworkout.jpg" },
-                new WorkoutProgram { Name = "Weight Gain", Description = "Strength training for muscle gain.", Image = "weightgain.jpg" },
+                new WorkoutProgram { Name = "Full Body treening", Description = "Täielik treening kogu kehale.", Image = "fullbody.jpg" },
+                new WorkoutProgram { Name = "Cardio Blast", Description = "Kõrge intensiivsusega kardiotreening.", Image = "cardio.jpg" },
+                new WorkoutProgram { Name = "Fat Burning", Description = "Intensiivne treening rasva põletamiseks.", Image = "fatburning.png" },
+                new WorkoutProgram { Name = "Abs Workout", Description = "Sihtotstarbelised harjutused kõhulihaste ehitamiseks.", Image = "absworkout.jpg" },
+                new WorkoutProgram { Name = "Weight Gain", Description = "Jõutreening lihaste kasvatamiseks.", Image = "weightgain.jpg" },
             };
 
             // Установка BindingContext для привязки данных
@@ -30,7 +30,7 @@ namespace WorkoutApp
 
         private async void OnHomeClicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Navigation", "Home clicked", "OK");
+           
             await Navigation.PushAsync(new MainPage(_currentUser));
         }
 
@@ -69,7 +69,7 @@ namespace WorkoutApp
             Page targetPage = null;
             switch (selectedProgram.Name)
             {
-                case "Full Body Workout":
+                case "Full Body treening":
                     targetPage = new FullBody(_currentUser);
                     break;
                 case "Cardio Blast":

@@ -26,21 +26,21 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20">
-            <Label Text="Register"
+            <Label Text="Registreeri"
                    Style="{StaticResource LabelStyle}"
                    FontSize="24"
                    HorizontalOptions="Center" />
             <Entry x:Name="UsernameEntry"
-                   Placeholder="Username"
+                   Placeholder="Kasutajanimi"
                    Style="{StaticResource EntryStyle}" />
             <Entry x:Name="PasswordEntry"
-                   Placeholder="Password"
+                   Placeholder="Parool"
                    IsPassword="True"
                    Style="{StaticResource EntryStyle}" />
             <Button Text="Register"
                     Style="{StaticResource ButtonStyle}"
                     Clicked="OnRegisterButtonClicked" />
-            <Button Text="Already have account? Login"
+            <Button Text="Kas teil on juba konto? Logi sisse"
                     Style="{StaticResource ButtonStyle}"
                     Clicked="OnLoginButtonClicked" />
         </VerticalStackLayout>

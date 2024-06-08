@@ -33,7 +33,7 @@
                             <StackLayout>
                                 <Label Text="{Binding Day}" Style="{StaticResource LabelStyle}" FontAttributes="Bold" />
                                 <Label Text="{Binding Description}" Style="{StaticResource LabelStyle}" FontSize="12" />
-                                <Button Text="Mark as Completed" Clicked="OnDayCompleted" />
+                                <Button Text="Märgi lõpetatuks" Clicked="OnDayCompleted" />
                             </StackLayout>
                         </Frame>
                     </DataTemplate>
