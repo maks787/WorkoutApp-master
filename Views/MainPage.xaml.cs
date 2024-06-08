@@ -15,7 +15,7 @@ namespace WorkoutApp
             InitializeComponent();
             _currentUser = user;
 
-            // Инициализация данных
+  
             RecommendedPrograms = new ObservableCollection<WorkoutProgram>
             {
                 new WorkoutProgram { Name = "Full Body Workout", Description = "A complete workout for your whole body.", Image = "fullbody.jpg" },
@@ -29,10 +29,11 @@ namespace WorkoutApp
             this.BindingContext = this;
         }
 
-        // Обработчики событий для навигации
+     
         private async void OnHomeClicked(object sender, EventArgs e)
         {
             await DisplayAlert("Navigation", "Home clicked", "OK");
+            await Navigation.PushAsync(new MainPage(_currentUser));
         }
 
         private async void OnProgramsClicked(object sender, EventArgs e)
@@ -40,23 +41,23 @@ namespace WorkoutApp
             await DisplayAlert("Navigation", "Programs clicked", "OK");
         }
 
-        private async void OnProgressClicked(object sender, EventArgs e)
-        {
-            await DisplayAlert("Navigation", "Progress clicked", "OK");
-        }
+        //private async void OnProgressClicked(object sender, EventArgs e)
+        //{
+        //    await DisplayAlert("Navigation", "Progress clicked", "OK");
+        //}
 
         private async void OnSettingsClicked(object sender, EventArgs e)
         {
-            // Переход на страницу настроек
-            await Navigation.PushAsync(new SettingsPage());
+            await Navigation.PushAsync(new SettingsPage(_currentUser));
         }
+
 
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
-            // Возврат на страницу входа и удаление текущих страниц из стека навигации
+      
             await Navigation.PushAsync(new LoginPage());
 
-            // Очистка стека навигации для предотвращения возврата на предыдущие страницы
+         
             Navigation.RemovePage(this);
         }
 
