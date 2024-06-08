@@ -23,7 +23,6 @@ namespace WorkoutApp
             var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "workout.db3");
             Debug.WriteLine($"Database path in Cadio: {dbPath}");
             _databaseService = new DatabaseService(dbPath);
-            Days = new ObservableCollection<WorkoutDay>();
             LoadProgress();
             BindingContext = this;
         }
@@ -31,7 +30,7 @@ namespace WorkoutApp
         private async void LoadProgress()
         {
             Debug.WriteLine("LoadProgress started");
-            var days = await _databaseService.GetWorkoutDaysAsync(_currentUser.Id);
+            var days = await _databaseService.GetWorkoutDaysAsync(_currentUser.Id, "Cardio"); // Указываем тип тренировки
             if (days == null || !days.Any())
             {
                 Debug.WriteLine("No existing days found, initializing new days");
@@ -40,17 +39,12 @@ namespace WorkoutApp
             else
             {
                 Debug.WriteLine($"Found {days.Count} days in database");
-                Days.Clear();
-                foreach (var day in days.OrderBy(d => d.Id))
-                {
-                    Days.Add(day);
-                }
+                Days = new ObservableCollection<WorkoutDay>(days.OrderBy(d => d.Id).ToList());
                 Debug.WriteLine($"Loaded {Days.Count} days from the database");
                 foreach (var day in Days)
                 {
                     Debug.WriteLine($"Day {day.Day}, IsLocked: {day.IsLocked}, IsCompleted: {day.IsCompleted}");
                 }
-                // Установка BindingContext после загрузки данных
                 BindingContext = this;
             }
         }
@@ -58,18 +52,20 @@ namespace WorkoutApp
         private void InitializeDays()
         {
             Debug.WriteLine("Initializing days");
+            Days = new ObservableCollection<WorkoutDay>();
             for (int i = 1; i <= 30; i++)
             {
                 var exercises = new ObservableCollection<WorkoutExercise>
                 {
-                    new WorkoutExercise { Name = "High Knees", Description = "Run in place, lifting your knees as high as possible. Aim for 1 minute.", Image = "highknees.jpg" },
-                    new WorkoutExercise { Name = "Burpees", Description = "Run in place, kicking your heels towards your buttocks. Aim for 1 minute.", Image = "burpee.jpg" },
-                    new WorkoutExercise { Name = "Jump Rope", Description = "Pretend to jump rope, mimicking the motion with your hands and feet. Aim for 1 minute.", Image = "jumprope.png" }
+                    new WorkoutExercise { Name = "Jumping Jacks", Description = "Do 50 jumping jacks.", Image = "jumpingjacks.jpg" },
+                    new WorkoutExercise { Name = "Burpees", Description = "Do 20 burpees.", Image = "burpees.jpg" },
+                    new WorkoutExercise { Name = "Mountain Climbers", Description = "Do 40 mountain climbers.", Image = "mountainclimbers.jpg" }
                 };
 
                 var day = new WorkoutDay
                 {
                     UserId = _currentUser.Id,
+                    WorkoutType = "Cardio", // Указываем тип тренировки
                     Day = $"Day {i}",
                     Description = $"Full Body Workout details for day {i}.",
                     Exercises = exercises,
@@ -82,6 +78,7 @@ namespace WorkoutApp
                 Debug.WriteLine($"Initialized day {i}");
             }
             Debug.WriteLine($"Initialized {Days.Count} days");
+            BindingContext = this;
         }
 
         private async void SaveProgress(WorkoutDay day)

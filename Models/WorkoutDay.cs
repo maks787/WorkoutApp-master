@@ -15,6 +15,7 @@ namespace WorkoutApp.Models
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public int UserId { get; set; }
+        public string WorkoutType { get; set; }
         public string Day { get; set; }
         public string Description { get; set; }
 

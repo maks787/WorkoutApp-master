@@ -51,10 +51,10 @@ namespace WorkoutApp.Services
         }
 
         // WorkoutDay methods
-        public Task<List<WorkoutDay>> GetWorkoutDaysAsync(int userId)
+        public Task<List<WorkoutDay>> GetWorkoutDaysAsync(int userId, string workoutType)
         {
             return _database.Table<WorkoutDay>()
-                            .Where(d => d.UserId == userId)
+                            .Where(d => d.UserId == userId && d.WorkoutType == workoutType)
                             .ToListAsync();
         }
 
