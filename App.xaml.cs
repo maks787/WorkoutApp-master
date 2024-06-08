@@ -1,6 +1,5 @@
 ﻿using Microsoft.Maui;
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;
 using System;
 using System.IO;
 using WorkoutApp.Services;
@@ -26,12 +25,11 @@ namespace WorkoutApp
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new NavigationPage(new LoginPage()); // Инициализация страницы логина
         }
 
         protected override void OnStart()
         {
- 
         }
 
         protected override void OnSleep()
@@ -41,9 +39,5 @@ namespace WorkoutApp
         protected override void OnResume()
         {
         }
-
-      
-       
-     
     }
 }

@@ -1,39 +1,46 @@
 ﻿using Microsoft.Maui.Controls;
 using WorkoutApp.Models;
+using WorkoutApp.Services;
 using System.Collections.ObjectModel;
-using Microsoft.Maui.Storage;
-using System.Text.Json;
+using System.Linq;
+using System.IO;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace WorkoutApp
 {
     public partial class Cadio : ContentPage
     {
+        private DatabaseService _databaseService;
+        private User _currentUser;
+
         public ObservableCollection<WorkoutDay> Days { get; set; }
 
-        public Cadio()
+        public Cadio(User user)
         {
             InitializeComponent();
+            _currentUser = user;
+            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "workout.db3");
+            Debug.WriteLine($"Database path in Cadio: {dbPath}");
+            _databaseService = new DatabaseService(dbPath);
             LoadProgress();
             BindingContext = this;
         }
 
-        private void LoadProgress()
+        private async void LoadProgress()
         {
-            string savedProgress = Preferences.Get("WorkoutProgress", string.Empty);
-            if (!string.IsNullOrEmpty(savedProgress))
+            Debug.WriteLine("LoadProgress started");
+            var days = await _databaseService.GetWorkoutDaysAsync(_currentUser.Id);
+            if (days == null || !days.Any())
             {
-                Days = JsonSerializer.Deserialize<ObservableCollection<WorkoutDay>>(savedProgress);
-                int lastCompletedIndex = Preferences.Get("LastCompletedDayIndex", 0);
-                if (lastCompletedIndex > 0 && lastCompletedIndex < Days.Count)
-                {
-                    var lastCompletedDay = Days[lastCompletedIndex];
-                    Days.RemoveAt(lastCompletedIndex);
-                    Days.Insert(0, lastCompletedDay);
-                }
+                Debug.WriteLine("No existing days found, initializing new days");
+                InitializeDays();
             }
             else
             {
-                InitializeDays();
+                Days = new ObservableCollection<WorkoutDay>(days.OrderBy(d => d.Id).ToList());
+                Debug.WriteLine($"Loaded {Days.Count} days from the database");
+                BindingContext = this;
             }
         }
 
@@ -49,20 +56,28 @@ namespace WorkoutApp
                     new WorkoutExercise { Name = "Mountain Climbers", Description = "Do 40 mountain climbers.", Image = "mountainclimbers.jpg" }
                 };
 
-                Days.Add(new WorkoutDay
+                var day = new WorkoutDay
                 {
+                    UserId = _currentUser.Id,
                     Day = $"Day {i}",
                     Description = $"Full Body Workout details for day {i}.",
                     Exercises = exercises,
                     IsLocked = i != 1 // Разблокируем только первый день
-                });
+                };
+
+                day.UpdateExercisesJson();
+                Days.Add(day);
+                _databaseService.SaveWorkoutDayAsync(day).Wait();
+                Debug.WriteLine($"Initialized day {i}");
             }
+            Debug.WriteLine($"Initialized {Days.Count} days");
+            BindingContext = this;
         }
 
-        private void SaveProgress()
+        private async void SaveProgress(WorkoutDay day)
         {
-            string progress = JsonSerializer.Serialize(Days);
-            Preferences.Set("WorkoutProgress", progress);
+            day.UpdateExercisesJson();
+            await _databaseService.SaveWorkoutDayAsync(day);
         }
 
         private async void OnDayTapped(object sender, EventArgs e)
@@ -89,8 +104,7 @@ namespace WorkoutApp
                     {
                         Days[currentIndex + 1].IsLocked = false; // Разблокируем следующий день
                     }
-                    Preferences.Set("LastCompletedDayIndex", currentIndex);
-                    SaveProgress();
+                    SaveProgress(day);
                 }
                 else
                 {
