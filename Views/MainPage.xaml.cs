@@ -47,16 +47,16 @@ namespace WorkoutApp
 
         private async void OnSettingsClicked(object sender, EventArgs e)
         {
-            // Переход на страницу настроек
-            await Navigation.PushAsync(new SettingsPage());
+            await Navigation.PushAsync(new SettingsPage(_currentUser));
         }
+
 
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
-            // Возврат на страницу входа и удаление текущих страниц из стека навигации
+      
             await Navigation.PushAsync(new LoginPage());
 
-            // Очистка стека навигации для предотвращения возврата на предыдущие страницы
+         
             Navigation.RemovePage(this);
         }
 

@@ -31,7 +31,12 @@ namespace WorkoutApp
             if (user != null)
             {
                 Debug.WriteLine("Login successful");
-                await Navigation.PushAsync(new MainPage(user)); // Передаем пользователя
+
+                // Заменяем текущую страницу MainPage
+                var mainPage = new MainPage(user);
+                NavigationPage navigationPage = (NavigationPage)Application.Current.MainPage;
+                navigationPage.Navigation.InsertPageBefore(mainPage, this);
+                await navigationPage.Navigation.PopAsync(); // Удаляем страницу логина из стека
             }
             else
             {
@@ -39,6 +44,7 @@ namespace WorkoutApp
                 await DisplayAlert("Ошибка", "Неправильное имя пользователя или пароль", "OK");
             }
         }
+
 
         private async void OnRegisterButtonClicked(object sender, EventArgs e)
         {
