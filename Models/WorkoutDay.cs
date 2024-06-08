@@ -18,7 +18,14 @@ namespace WorkoutApp.Models
         public string Day { get; set; }
         public string Description { get; set; }
 
+
         [Ignore]
+
+
+        public string Program { get; set; } 
+
+        [Ignore]
+
         public ObservableCollection<WorkoutExercise> Exercises { get; set; }
         public string ExercisesJson
         {

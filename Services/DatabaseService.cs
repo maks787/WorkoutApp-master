@@ -58,6 +58,15 @@ namespace WorkoutApp.Services
                             .ToListAsync();
         }
 
+
+        public Task<List<WorkoutDay>> GetCompletedWorkoutDaysAsync(int userId)
+        {
+            return _database.Table<WorkoutDay>()
+                            .Where(d => d.UserId == userId && d.IsCompleted)
+                            .ToListAsync();
+        }
+
+
         public Task<int> SaveWorkoutDayAsync(WorkoutDay day)
         {
             if (day.Id != 0)

@@ -80,19 +80,19 @@ namespace WorkoutApp
             switch (selectedProgram.Name)
             {
                 case "Full Body Workout":
-                    targetPage = new FullBody();
+                    targetPage = new FullBody(_currentUser);
                     break;
                 case "Cardio Blast":
                     targetPage = new Cadio(_currentUser); // Передаем текущего пользователя
                     break;
                 case "Fat Burning":
-                    targetPage = new FatBurn();
+                    targetPage = new FatBurn(_currentUser);
                     break;
                 case "Abs Workout":
-                    targetPage = new ABSWork();
+                    targetPage = new ABSWork(_currentUser);
                     break;
                 case "Weight Gain":
-                    targetPage = new WeightGain();
+                    targetPage = new WeightGain(_currentUser);
                     break;
             }
 
