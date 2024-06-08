@@ -4,6 +4,7 @@ using WorkoutApp.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.IO;
+using System.Threading.Tasks;
 using System.Diagnostics;
 
 namespace WorkoutApp
@@ -23,13 +24,12 @@ namespace WorkoutApp
             Debug.WriteLine($"Database path in ABSWork: {dbPath}");
             _databaseService = new DatabaseService(dbPath);
             LoadProgress();
-            BindingContext = this;
         }
 
         private async void LoadProgress()
         {
             Debug.WriteLine("LoadProgress started");
-            var days = await _databaseService.GetWorkoutDaysAsync(_currentUser.Id, "Abs"); // Указываем тип тренировки
+            var days = await _databaseService.GetWorkoutDaysAsync(_currentUser.Id, "ABS"); // Указываем тип тренировки
             if (days == null || !days.Any())
             {
                 Debug.WriteLine("No existing days found, initializing new days");
@@ -64,9 +64,9 @@ namespace WorkoutApp
                 var day = new WorkoutDay
                 {
                     UserId = _currentUser.Id,
-                    WorkoutType = "Abs", // Указываем тип тренировки
+                    WorkoutType = "ABS", // Указываем тип тренировки
                     Day = $"Day {i}",
-                    Description = $"Abs Workout details for day {i}.",
+                    Description = $"ABS Workout details for day {i}.",
                     Exercises = exercises,
                     IsLocked = i != 1 // Разблокируем только первый день
                 };

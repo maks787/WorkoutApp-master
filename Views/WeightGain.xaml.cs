@@ -4,6 +4,7 @@ using WorkoutApp.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.IO;
+using System.Threading.Tasks;
 using System.Diagnostics;
 
 namespace WorkoutApp
@@ -23,7 +24,6 @@ namespace WorkoutApp
             Debug.WriteLine($"Database path in WeightGain: {dbPath}");
             _databaseService = new DatabaseService(dbPath);
             LoadProgress();
-            BindingContext = this;
         }
 
         private async void LoadProgress()
@@ -56,9 +56,9 @@ namespace WorkoutApp
             {
                 var exercises = new ObservableCollection<WorkoutExercise>
                 {
-                    new WorkoutExercise { Name = "Push-Ups", Description = "Do 20 push-ups.", Image = "pushups.jpg" },
-                    new WorkoutExercise { Name = "Pull-Ups", Description = "Do 10 pull-ups.", Image = "pullups.jpg" },
-                    new WorkoutExercise { Name = "Dumbbell Press", Description = "Do 15 dumbbell presses.", Image = "dumbbellpress.jpg" }
+                    new WorkoutExercise { Name = "Push-ups", Description = "Do 20 push-ups.", Image = "pushups.jpg" },
+                    new WorkoutExercise { Name = "Squats", Description = "Do 30 squats.", Image = "squats.jpg" },
+                    new WorkoutExercise { Name = "Lunges", Description = "Do 20 lunges on each leg.", Image = "lunges.jpg" }
                 };
 
                 var day = new WorkoutDay

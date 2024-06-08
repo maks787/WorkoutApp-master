@@ -21,10 +21,9 @@ namespace WorkoutApp
             InitializeComponent();
             _currentUser = user;
             var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "workout.db3");
-            Debug.WriteLine($"Database path in Cadio: {dbPath}");
+            Debug.WriteLine($"Database path in Cardio: {dbPath}");
             _databaseService = new DatabaseService(dbPath);
             LoadProgress();
-            BindingContext = this;
         }
 
         private async void LoadProgress()

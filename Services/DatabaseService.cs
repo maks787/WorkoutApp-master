@@ -14,7 +14,7 @@ namespace WorkoutApp.Services
         {
             _database = new SQLiteAsyncConnection(dbPath);
             _database.CreateTableAsync<User>().Wait();
-            _database.CreateTableAsync<WorkoutDay>().Wait(); // Создание таблицы WorkoutDay
+            _database.CreateTableAsync<WorkoutDay>().Wait();
         }
 
         // User methods

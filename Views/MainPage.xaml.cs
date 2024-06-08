@@ -15,7 +15,6 @@ namespace WorkoutApp
             InitializeComponent();
             _currentUser = user;
 
-  
             RecommendedPrograms = new ObservableCollection<WorkoutProgram>
             {
                 new WorkoutProgram { Name = "Full Body Workout", Description = "A complete workout for your whole body.", Image = "fullbody.jpg" },
@@ -29,7 +28,6 @@ namespace WorkoutApp
             this.BindingContext = this;
         }
 
-     
         private async void OnHomeClicked(object sender, EventArgs e)
         {
             await DisplayAlert("Navigation", "Home clicked", "OK");
@@ -38,7 +36,7 @@ namespace WorkoutApp
 
         private async void OnProgressClicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Navigation", "Progress clicked", "OK");
+            await Navigation.PushAsync(new ProgressPage(_currentUser));
         }
 
         private async void OnSettingsClicked(object sender, EventArgs e)
@@ -46,13 +44,9 @@ namespace WorkoutApp
             await Navigation.PushAsync(new SettingsPage(_currentUser));
         }
 
-
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
-      
             await Navigation.PushAsync(new LoginPage());
-
-         
             Navigation.RemovePage(this);
         }
 
@@ -76,10 +70,10 @@ namespace WorkoutApp
             switch (selectedProgram.Name)
             {
                 case "Full Body Workout":
-                    targetPage = new FullBody();
+                    targetPage = new FullBody(_currentUser);
                     break;
                 case "Cardio Blast":
-                    targetPage = new Cadio(_currentUser); // Передаем текущего пользователя
+                    targetPage = new Cadio(_currentUser);
                     break;
                 case "Fat Burning":
                     targetPage = new FatBurn(_currentUser);

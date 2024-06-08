@@ -4,6 +4,7 @@ using WorkoutApp.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.IO;
+using System.Threading.Tasks;
 using System.Diagnostics;
 
 namespace WorkoutApp
@@ -23,7 +24,6 @@ namespace WorkoutApp
             Debug.WriteLine($"Database path in FatBurn: {dbPath}");
             _databaseService = new DatabaseService(dbPath);
             LoadProgress();
-            BindingContext = this;
         }
 
         private async void LoadProgress()
@@ -56,9 +56,9 @@ namespace WorkoutApp
             {
                 var exercises = new ObservableCollection<WorkoutExercise>
                 {
-                    new WorkoutExercise { Name = "High Knees", Description = "Run in place, lifting your knees as high as possible.", Image = "highknees.jpg" },
-                    new WorkoutExercise { Name = "Jump Squats", Description = "Perform a squat, then jump up explosively.", Image = "jumpsquats.jpg" },
-                    new WorkoutExercise { Name = "Burpees", Description = "Do 20 burpees.", Image = "burpees.jpg" }
+                    new WorkoutExercise { Name = "High Knees", Description = "Run in place while bringing your knees as high as possible.", Image = "highknees.jpg" },
+                    new WorkoutExercise { Name = "Burpees", Description = "Do 20 burpees.", Image = "burpees.jpg" },
+                    new WorkoutExercise { Name = "Jump Squats", Description = "Do 20 jump squats.", Image = "jumpsquats.jpg" }
                 };
 
                 var day = new WorkoutDay
