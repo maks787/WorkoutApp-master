@@ -11,6 +11,7 @@ namespace WorkoutApp
         {
             InitializeComponent();
             _user = user;
+            BindingContext = _user; 
         }
 
         private async void OnSaveButtonClicked(object sender, EventArgs e)
@@ -25,7 +26,7 @@ namespace WorkoutApp
 
                 await App.Database.SaveUserAsync(_user);
 
-                await Navigation.PushAsync(new MainPage());
+                await Navigation.PushAsync(new MainPage(_user)); 
             }
             else
             {

@@ -8,10 +8,12 @@ namespace WorkoutApp
     public partial class MainPage : ContentPage
     {
         public ObservableCollection<WorkoutProgram> RecommendedPrograms { get; set; }
+        private User _currentUser;
 
-        public MainPage()
+        public MainPage(User user)
         {
             InitializeComponent();
+            _currentUser = user;
 
             // Инициализация данных
             RecommendedPrograms = new ObservableCollection<WorkoutProgram>
@@ -48,6 +50,7 @@ namespace WorkoutApp
             // Переход на страницу настроек
             await Navigation.PushAsync(new SettingsPage());
         }
+
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
             // Возврат на страницу входа и удаление текущих страниц из стека навигации
@@ -80,7 +83,7 @@ namespace WorkoutApp
                     targetPage = new FullBody();
                     break;
                 case "Cardio Blast":
-                    targetPage = new Cadio();
+                    targetPage = new Cadio(_currentUser); // Передаем текущего пользователя
                     break;
                 case "Fat Burning":
                     targetPage = new FatBurn();
@@ -102,6 +105,5 @@ namespace WorkoutApp
                 await DisplayAlert("Error", "Target page is null", "OK");
             }
         }
-
     }
 }
