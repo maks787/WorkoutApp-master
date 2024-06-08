@@ -2,6 +2,7 @@
 using WorkoutApp.Models;
 using WorkoutApp.Services;
 using System.IO;
+using System.Diagnostics;
 
 namespace WorkoutApp
 {
@@ -13,12 +14,8 @@ namespace WorkoutApp
         {
             InitializeComponent();
             var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "workout.db3");
+            Debug.WriteLine($"Database path in RegistrationPage: {dbPath}");
             _databaseService = new DatabaseService(dbPath);
-        }
-
-        private async void OnLoginButtonClicked(object sender, EventArgs e)
-        {
-            await Navigation.PopAsync(); 
         }
 
         private async void OnRegisterButtonClicked(object sender, EventArgs e)
@@ -26,23 +23,22 @@ namespace WorkoutApp
             string username = UsernameEntry.Text;
             string password = PasswordEntry.Text;
 
-            // Проверьте, что введенные данные не пустые
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-            {
-                await DisplayAlert("Ошибка", "Пожалуйста, введите имя пользователя и пароль", "OK");
-                return;
-            }
-
-            User newUser = new User
+            var user = new User
             {
                 Username = username,
                 Password = password
+                // Остальные поля можно установить позже
             };
 
-            await _databaseService.SaveUserAsync(newUser);
+            await _databaseService.SaveUserAsync(user);
 
             await DisplayAlert("Успех", "Пользователь зарегистрирован", "OK");
-            await Navigation.PopAsync(); // Возвращаемся на страницу логина
+            await Navigation.PopAsync();
+        }
+
+        private async void OnLoginButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
         }
     }
 }

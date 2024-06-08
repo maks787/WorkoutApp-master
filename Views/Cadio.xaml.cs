@@ -23,6 +23,7 @@ namespace WorkoutApp
             var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "workout.db3");
             Debug.WriteLine($"Database path in Cadio: {dbPath}");
             _databaseService = new DatabaseService(dbPath);
+            Days = new ObservableCollection<WorkoutDay>();
             LoadProgress();
             BindingContext = this;
         }
@@ -38,15 +39,25 @@ namespace WorkoutApp
             }
             else
             {
-                Days = new ObservableCollection<WorkoutDay>(days.OrderBy(d => d.Id).ToList());
+                Debug.WriteLine($"Found {days.Count} days in database");
+                Days.Clear();
+                foreach (var day in days.OrderBy(d => d.Id))
+                {
+                    Days.Add(day);
+                }
                 Debug.WriteLine($"Loaded {Days.Count} days from the database");
+                foreach (var day in Days)
+                {
+                    Debug.WriteLine($"Day {day.Day}, IsLocked: {day.IsLocked}, IsCompleted: {day.IsCompleted}");
+                }
+                // Установка BindingContext после загрузки данных
                 BindingContext = this;
             }
         }
 
         private void InitializeDays()
         {
-            Days = new ObservableCollection<WorkoutDay>();
+            Debug.WriteLine("Initializing days");
             for (int i = 1; i <= 30; i++)
             {
                 var exercises = new ObservableCollection<WorkoutExercise>
@@ -71,7 +82,6 @@ namespace WorkoutApp
                 Debug.WriteLine($"Initialized day {i}");
             }
             Debug.WriteLine($"Initialized {Days.Count} days");
-            BindingContext = this;
         }
 
         private async void SaveProgress(WorkoutDay day)
