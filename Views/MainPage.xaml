@@ -75,8 +75,8 @@
         <StackLayout Orientation="Horizontal"
                      BackgroundColor="Blue"
                      VerticalOptions="End"
-                     Padding="5"
-                     Spacing="10"
+                     Padding="1"
+                     Spacing="5"
                      Grid.Row="1">
             <Button Text="Avaleht" Style="{StaticResource ButtonStyle}" Clicked="OnHomeClicked" />
             <Button Text="Seaded" Style="{StaticResource ButtonStyle}" Clicked="OnSettingsClicked" />
