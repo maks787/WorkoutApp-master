@@ -41,7 +41,7 @@ namespace WorkoutApp
             else
             {
                 Debug.WriteLine("Login failed");
-                await DisplayAlert("Ошибка", "Неправильное имя пользователя или пароль", "OK");
+                await DisplayAlert("Viga", "Vale kasutajanimi või salasõna", "OK");
             }
         }
 

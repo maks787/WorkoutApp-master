@@ -32,7 +32,7 @@ namespace WorkoutApp
 
             await _databaseService.SaveUserAsync(user);
 
-            await DisplayAlert("Успех", "Пользователь зарегистрирован", "OK");
+            await DisplayAlert("Edu", "Kasutaja registreeritud", "OK");
             await Navigation.PopAsync();
         }
 

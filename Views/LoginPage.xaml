@@ -37,7 +37,7 @@
                    Placeholder="Parool"
                    IsPassword="True"
                    Style="{StaticResource EntryStyle}" />
-            <Button Text="Login"
+            <Button Text="Logi sisse"
                     Style="{StaticResource ButtonStyle}"
                     Clicked="OnLoginButtonClicked" />
             <Button Text="Register"
